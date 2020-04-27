@@ -3,20 +3,22 @@
 using namespace rlang;
 
 
-
 Expression::Expression():
-	m_tvalue(),m_bvalue()
+	m_tvalue()
 {
 
 }
 
 Expression::Expression(std::vector<Token> statement):
-	m_tvalue(statement),m_bvalue()
+	m_tvalue(statement)
 {
 	/*Grammar Check*/
-	if (m_bvalue[0].token() == "int" && m_bvalue[1].Type() == "identifier" && m_tvalue[2].token() == ";")
+	if (m_tvalue[0].token() == "print")
 	{
-		m_bvalue.push_back()
+		if (m_tvalue[2].Type() == "constant")
+		{
+			std::cout << m_tvalue[2].token() << std::endl;
+		}
 	}
 }
 

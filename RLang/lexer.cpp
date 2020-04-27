@@ -4,8 +4,8 @@
 
 using namespace rlang;
 
-char operators[] = "=;+-*/(){}&";
-const int operator_count = 12;
+char operators[] = "=,;+-*/(){}&";
+const int operator_count = 13;
 std::string Keywords[] = {"endl","null","true","false","main","print","bool","int","float","string","return","break","continue","exit"};
 const int keyword_count = 14;
 

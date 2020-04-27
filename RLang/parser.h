@@ -5,18 +5,10 @@
 namespace rlang
 {
 	
-	class Base : public Token
-	{
-	private:
-	public:
-	};
-
-
 	class Expression
 	{
-	private:
+	public:
 		std::vector<Token> m_tvalue;
-		std::vector<Base>  m_bvalue;
 	public:
 		Expression();
 		Expression(std::vector<Token> statement);
