@@ -31,12 +31,12 @@ It supports below data types <br>
 
 syntax :<br>
 printing to screen.<br>
-print(<data>);<br>
-print(<data,<modifier>);<br
->
- print(<data>+<data>);<br>
+print(data);<br>
+print(data,modifier);<br>
+
+ print(data+data);<br>
  
-print(<data>+<data>,<modifier>);<br>
+print(data+data,modifier);<br>
 Development :
 Currently Interpreter is able to do Lexical Analysis.<br>
 Ability to Parse is under development <br>
