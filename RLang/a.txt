@@ -1,0 +1,21 @@
+int
+main
+(
+)
+{
+int
+a 
+=
+0
+;
+print
+(
+"hello world!"
+)
+;
+return
+(
+0
+)
+;
+}

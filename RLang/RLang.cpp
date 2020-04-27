@@ -1,118 +1,106 @@
-#include <iostream>
-#include<fstream>
+#include<iostream>
+#include"lexer.h"
 #include<vector>
-#include<string>
+#include<sstream>
 
-
-class Token
+struct variable
 {
-private:
-    std::string token;
-    std::string type;
-public:
-    Token();
-    Token(std::string token,std::string type);
-    void Log();
-    ~Token();
+	std::string name;
+	std::string type;
+	int _int;
+	float _float;
+	double _double;
+	std::string _string;
 };
 
-Token::Token()
-{
-
-
-}
-
-Token::Token(std::string token, std::string type):
-    token(token),type(type)
-{
-
-
-}
-
-void Token::Log()
-{
-    std::cout << type << " " << token;
-}
-
-Token::~Token()
-{
-
-}
-
-std::string operators = "+-*/%&!#~='\"|\\,.:;[](){}<>?";
-std::string keywords[] = { "asm","auto","bool","break","case",
-"catch","char","class","const_cast","continue",
-"default","delete","do","double","dynamic_cast",
-"else","enum","explicit","extern","false","float",
-"for","friend","gotot","if","inline","int","long",
-"mutable","namespace","new","operator","private",
-"protected","public","register","reinterpret_cast",
-"return","short","signed","sizeof","static",
-"static_cast","struct","switch","template","this",
-"throw","true","try","typedef","typeid","typename",
-"union","unsigned","using","virtual","void",
-"volatile","wchar_t","while" };
-char constants[] = { "0123456789" };
-
+std::vector<variable> var_table;
 
 int main()
 {
-    std::ifstream fin;
-    char ch;
-    int count = 0;
-    fin.open("prj.txt", std::ios::in);
-    while (fin)
-    {
-        fin.get(ch);
-        count += 1;
-    }
-    fin.close();
-    std::cout << count << std::endl;
-    char* source = new char[count];
-    fin.open("prj.txt", std::ios::in);
-    for (int i = 0; i < count; i++)
-    {
-        fin.get(ch);
-        source[i] = ch;
-    }
-    fin.close();
-    std::string src = source;
-    std::vector<Token> tkn;
-    bool fwd = true;
-    for (int i = 0; i < count-1; i++)
-    {
-       
-        if (src[i] == '\n')
-        {
-           // tkn.push_back("\n");
-            continue;
-        }
-      
-        for (int j = 0; j < 28; j++)
-        {
-            if (src[i] == operators[j])
-            {
-                tkn.push_back(Token(operators.substr(j, 1),"Operator"));              
-                break;
-            }
-        }
-        
-        for (int j = 0; j < 61; j++)
-        {
-            if (src.substr(i,keywords[j].size()) ==keywords[j])
-            {
-                tkn.push_back(Token(keywords[j],"Keyword"));
-                i += keywords[j].size()-1;
-                break;
-            }
-        }
-    }
-    for (int i = 0; i < tkn.size(); i++)
-    {
-       tkn[i].Log();
-       std::cout << std::endl;
-    }
-    std::cin.get();
-    return 0;
-}
+	std::vector<rlang::Token> tkn;
+	rlang::Lexer("test.txt",tkn);
+	/*for (int i = 0; i < tkn.size(); i++)
+	{
+		tkn[i].Log();
+	}
+	*/
 
+	std::cout << "Interpreting started" << std::endl;
+
+	for (int i = 0; i < tkn.size(); i++)
+	{
+		if (tkn[i].Type() == "keyword")
+		{
+			if (tkn[i] == "int")
+			{
+				if (tkn[i + 1].Type() == "identifier")
+				{
+					if (tkn[i + 2] == "=")
+					{
+						std::stringstream temp(tkn[i + 3].token());
+						int temp_int;
+						temp >> temp_int;
+						var_table.push_back(variable{tkn[i+1].token(),tkn[i].token(),temp_int,0,0,""});
+						i += 4;
+						//std::cout <<"variable created"<<std::endl;
+					}
+				}
+			}
+			else if (tkn[i] == "float")
+			{
+				if (tkn[i + 1].Type() == "identifier")
+				{
+					if (tkn[i + 2] == "=")
+					{
+						std::stringstream temp(tkn[i + 3].token());
+						int temp_int;
+						temp >> temp_int;
+						var_table.push_back(variable{ tkn[i + 1].token(),tkn[i].token(),temp_int,0,0,"" });
+						i += 4;
+						//std::cout <<"variable created"<<std::endl;
+					}
+				}
+			}
+			else if (tkn[i] == "print")
+			{
+				
+				if (tkn[i + 2].Type() == "identifier")
+				{
+
+					for (int j = 0; j < var_table.size(); j++)
+					{
+						if ( var_table[j].name.compare( tkn[1 + 2].token()) )
+						{
+							if (var_table[j].type == "int")
+							{
+								std::cout<< var_table[j]._int;
+								i += 4;
+							}
+							else if (var_table[j].type == "float")
+							{
+								std::cout << var_table[j]._float;
+								i += 4;
+							}
+						}
+					}
+				}
+				else if (tkn[i + 2].Type() == "string")
+				{
+					std::cout << tkn[i + 2].token();
+					i += 4;
+				}
+				else if (tkn[i + 2].Type() == "keyword")
+				{
+					if (tkn[i + 2] == "endl")
+					{
+						std::cout << "\n";
+						i += 2;
+					}
+				}
+			}
+		}
+	}
+	//std::cout << var_table.size() << std::endl;
+	std::cin.get();
+	return 0;
+}
