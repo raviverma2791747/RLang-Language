@@ -8,7 +8,7 @@ i.e variable declaration int a ;<br>
 But RLang focuses on :<br>
 Reducing complexity of syntax <br>
 Enchancing Readability of code<br>
-<br>
+
 
 
 
@@ -33,5 +33,5 @@ It supports below data types <br>
 
 Development :
 Currently Interpreter is able to do Lexical Analysis.<br>
-Abilitu to Parse is under development <br>
+Ability to Parse is under development <br>
 
