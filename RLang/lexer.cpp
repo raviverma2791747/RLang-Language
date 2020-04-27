@@ -4,10 +4,10 @@
 
 using namespace rlang;
 
-char operators[] = "#+-*/%&|!=><[](){},.;:'\"?^~\\";
-const int operator_count = 29;
-std::string Keywords[] = {"endl","main","print","string","int","float","double","return","break","continue","exit"};
-const int keyword_count = 11;
+char operators[] = "=;+-*/(){}&";
+const int operator_count = 12;
+std::string Keywords[] = {"endl","null","true","false","main","print","bool","int","float","string","return","break","continue","exit"};
+const int keyword_count = 14;
 
 Token::Token(std::string token, std::string type, int line) :
     m_token(token), m_type(type), m_line(line)
@@ -49,6 +49,10 @@ void Token::Log()
     std::cout << std::left << m_line << " | ";
     std::cout.width(10);
     std::cout << std::left << m_type << " | " << m_token << std::endl;
+}
+void Token::Log(int internal)
+{
+    std::cout << m_token << " ";
 }
 
 void Token::Push_back(char ch)
@@ -103,7 +107,7 @@ bool rlang::IsOperator(char ch)
     return false;
 }
 
-void rlang::Lexer(std::string path, std::vector<Token>& source)
+void rlang::Lexer(std::string path, std::vector<Token>& source,int internal)
 {
     /*First Pass*/
     std::ifstream fin;
@@ -289,4 +293,21 @@ void rlang::Lexer(std::string path, std::vector<Token>& source)
         }
     }
     fin.close();
+    if (internal == 1 ||internal == 3)
+    {
+        std::ofstream fout;
+        fout.open("a.txt", std::ios::out);
+        for (int i = 0; i < source.size(); i++)
+        {
+            fout << source[i].token() << std::endl;
+        }
+        fout.close();
+    }
+    if (internal == 2 || internal == 3)
+    {
+        for (int i = 0; i < source.size(); i++)
+        {
+            source[i].Log();
+        }
+    }
 }

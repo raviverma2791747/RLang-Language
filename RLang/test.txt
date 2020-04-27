@@ -1,4 +1,8 @@
-int a = 1000;
-print(a);
-print(endl);
-print("hello world!");
+int a;
+int b = 0;
+int c = d;
+int* b;
+int* c = null;
+int* d = &e;
+int* f = g;
+bool t = true;

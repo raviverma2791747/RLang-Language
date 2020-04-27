@@ -21,6 +21,7 @@ namespace rlang
         bool operator==(char str);
     public:
         void Log();
+        void Log(int internal);
         void Push_back(char ch);
         void Push_back(std::string str);
         std::string token();
@@ -30,5 +31,5 @@ namespace rlang
 
     bool IsKeyword(std::string& buffer);
     bool IsOperator(char ch);
-    void Lexer(std::string path,std::vector<Token>& source);
+    void Lexer(std::string path,std::vector<Token>& source,int internal);
 }
