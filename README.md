@@ -9,18 +9,18 @@ But RLang focuses on :<br>
 Reducing complexity of syntax <br>
 Enchancing Readability of code<br>
 <br>
-Some new features like<br>
-i.e void foo()<br>
-{ int a ;<br>
-void foo2()<br>
-{<br>
- int a;
- print(foo.a);<br>
- print(foo2.a);<br>
-}<br>
 
-foo2();<br>
-}<br>
+
+
+
+
+ 
+ 
+
+
+
+
+
 
 
 It supports below data types <br>
