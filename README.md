@@ -40,4 +40,4 @@ print(data+data,modifier);<br>
 Development :
 Currently Interpreter is able to do Lexical Analysis.<br>
 Parsing and interpreting and executing<br>
-The language doesnt hsve any intermediate representation like pythons byte to keep simplicity<br>
+The language doesnt hsve any intermediate representation like pythons bytecode to keep simplicity<br>
