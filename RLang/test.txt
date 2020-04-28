@@ -1,8 +1,7 @@
-scope program
-{
-int a;
-}end;
+import "ravi.txt";
 
-print(a);
+scope test
+{
 
 exit(0);
+}end;

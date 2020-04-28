@@ -3,6 +3,7 @@
 using namespace rlang;
 
 std::vector<std::vector<Token>> grammer = {
+	{ Token("import","keyword",0),Token("","string",0),Token(";","operator",0)},
 	{ Token("scope","keyword",0),Token("","identifier",0),Token("{","operator",0)},
 	{ Token("}","operator",0),Token("end","keyword",0),Token(";", "operator",0)},
 	{ Token("clear","keyword",0),Token("(","operator",0),Token(")","operator",0),Token(";","operator",0) },
@@ -87,14 +88,14 @@ void rlang::Parser(std::vector<Token>& source, std::vector<Expression>& statemen
 		{
 			continue;
 		}
-		if (source[i] == "scope")
+		else if (source[i] == "scope")
 		{
 			buffer.push_back(source[i]);
 			buffer.push_back(source[i+1]);
 			buffer.push_back(source[i+2]);
 			statements.push_back(buffer);
 			buffer.clear();
-			i += 3;
+			i += 2;
 		}
 		else if (source[i]  == "}" && source[i+1] == "end")
 		{
@@ -103,13 +104,16 @@ void rlang::Parser(std::vector<Token>& source, std::vector<Expression>& statemen
 			buffer.push_back(source[i + 2]);
 			statements.push_back(buffer);
 			buffer.clear();
-			i += 3;
+			i += 2;
 		}
-		while ( (source[i].token() != ";" && i < source.size()))
+		else
 		{
-			buffer.push_back(source[i]);
-			flag = true;
-			i += 1;
+			while ((source[i].token() != ";" && i < source.size()))
+			{
+				buffer.push_back(source[i]);
+				flag = true;
+				i += 1;
+			}
 		}
 		if (flag == true)
 		{

@@ -59,6 +59,7 @@ namespace rlang
 
 		void Print(std::string name, bool newline,std::string scope)
 		{
+			bool flag = false;
 			for (int i = 0; i < var_table.size(); i++)
 			{
 				if (var_table[i].Name() == name)
@@ -68,6 +69,7 @@ namespace rlang
 						std::cout << std::endl << "ERROR : Access denied not in current scope" << std::endl;
 						return;
 					}
+					flag = true;
 					if (var_table[i].Type() == "int")
 					{
 						std::cout << var_table[i].Int();
@@ -94,6 +96,10 @@ namespace rlang
 					}
 					break;
 				}
+			}
+			if (flag == false)
+			{
+				std::cout << std::endl << "ERROR : No Variable named : "<< name<< " declared in current scope  : "<<scope << std::endl;
 			}
 		}
 
