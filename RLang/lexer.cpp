@@ -6,8 +6,8 @@ using namespace rlang;
 
 char operators[] = "=,;+-*/(){}&";
 const int operator_count = 13;
-std::string Keywords[] = {"endl","null","true","false","main","print","bool","int","float","string","return","break","continue","exit","input"};
-const int keyword_count = 15;
+std::string Keywords[] = {"endl","null","pause","clear","true","false","main","print","bool","int","float","string","return","break","continue","exit","input"};
+const int keyword_count = 17;
 
 Token::Token(std::string token, std::string type, int line) :
     m_token(token), m_type(type), m_line(line)
@@ -213,14 +213,14 @@ void rlang::Lexer(std::string path, std::vector<Token>& source,int internal)
         //String identification
         else if (ch == '\"')
         {
-            buffer.push_back(ch);
+           // buffer.push_back(ch);
             fin.get(ch);
             while (ch != '\"')
             {
                 buffer.push_back(ch);
                 fin.get(ch);
             }
-            buffer.push_back(ch);
+           // buffer.push_back(ch);
             source.push_back(Token(buffer, "string", line));
             buffer.clear();
             continue;

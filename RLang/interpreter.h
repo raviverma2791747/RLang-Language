@@ -1,6 +1,7 @@
 #pragma once
 #include"parser.h"
 #include<vector>
+#include<stdlib.h>
 
 namespace rlang
 {
@@ -45,7 +46,7 @@ namespace rlang
 		void Allocate(Variable var)
 		{
 			var_table.push_back(var);
-			std::cout << var_table.size() << std::endl;
+			//std::cout << var_table.size() << std::endl;
 		}
 
 		void Print(std::string name, bool newline)
@@ -56,7 +57,7 @@ namespace rlang
 				{
 					if (var_table[i].Type() == "int")
 					{
-						std::cout << var_table[0].Int();
+						std::cout << var_table[i].Int();
 						if (newline)
 						{
 							std::cout << std::endl;
@@ -64,7 +65,7 @@ namespace rlang
 					}
 					else if (var_table[i].Type() == "float")
 					{
-						std::cout << var_table[0].Float();
+						std::cout << var_table[i].Float();
 						if (newline)
 						{
 							std::cout << std::endl;
@@ -72,13 +73,33 @@ namespace rlang
 					}
 					else if (var_table[i].Type() == "string")
 					{
-						std::cout << var_table[0].String();
+						std::cout << var_table[i].String();
 						if (newline)
 						{
 							std::cout << std::endl;
 						}
 					}
 					break;
+				}
+			}
+		}
+
+		void Print(Token cs,bool newline)
+		{
+			if (cs.Type() == "string")
+			{
+				std::cout << cs.token();
+				if (newline)
+				{
+					std::cout << std::endl;
+				}
+			}
+			else
+			{
+				std::cout << cs.token();
+				if (newline)
+				{
+					std::cout << std::endl;
 				}
 			}
 		}
@@ -122,6 +143,16 @@ namespace rlang
 				var_table[i].Log();
 			}
 		}
+
+		void Pause()
+		{
+			std::cin.get();
+		}
+
+		void Clear()
+		{
+			system("cls");
+		}
 	};
 
 	class Logger
@@ -143,5 +174,5 @@ namespace rlang
 	};
 
 	void Execute(Expression e, bool& status);
-	void Interpreter(std::vector<rlang::Expression>& statement);
+	void Interpreter(std::vector<rlang::Expression>& statement,int internal);
 }

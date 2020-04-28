@@ -180,8 +180,34 @@ void rlang::Execute(Expression e,bool& status)
 	{
 		if (e.m_tvalue[2].Type() == "identifier")
 		{
-			System::IO().Print(e.m_tvalue[2].token(), false);
+			if (e.m_tvalue.size() == 7)
+			{
+				System::IO().Print(e.m_tvalue[2].token(), true);
+			}
+			else
+			{
+				System::IO().Print(e.m_tvalue[2].token(), false);
+			}
 	    }
+		else if (e.m_tvalue[2].Type() == "string")
+		{
+			if (e.m_tvalue.size() == 7)
+			{
+				System::IO().Print(e.m_tvalue[2], true);
+			}
+			else
+			{
+				System::IO().Print(e.m_tvalue[2], false);
+			}
+		}
+	}
+	else if (e.m_tvalue[0].token() == "pause")
+	{
+		System::IO().Pause();
+	}
+	else if (e.m_tvalue[0].token() == "clear")
+	{
+		System::IO().Clear();
 	}
 	else if (e.m_tvalue[0].token() == "exit")
 	{
@@ -189,7 +215,7 @@ void rlang::Execute(Expression e,bool& status)
 	}
 }
 
-void rlang::Interpreter(std::vector<rlang::Expression>& statement)
+void rlang::Interpreter(std::vector<rlang::Expression>& statement, int internal)
 {
 	bool status = true;
 	for(int i=0;i<statement.size();i++)
@@ -200,5 +226,8 @@ void rlang::Interpreter(std::vector<rlang::Expression>& statement)
 			break;
 		}
 	}
-	System::IO().Log();
+	if (internal == 1)
+	{
+		System::IO().Log();
+	}
 }

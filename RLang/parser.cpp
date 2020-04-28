@@ -3,11 +3,15 @@
 using namespace rlang;
 
 std::vector<std::vector<Token>> grammer = {
+	{ Token("clear","keyword",0),Token("(","operator",0),Token(")","operator",0),Token(";","operator",0) },
+	{ Token("pause","keyword",0),Token("(","operator",0),Token(")","operator",0),Token(";","operator",0) },
 	{ Token("type","keyword",0),Token("","identifier",0),Token(";","operator",0) },
 	{ Token("type","keyword",0),Token("","identifier",0),Token("=","operator",0),Token("","constant",0),Token(";","operator",0) },
 	{ Token("type","keyword",0),Token("","identifier",0),Token("=","operator",0),Token("","identifier",0),Token(";","operator",0) },
 	{ Token("type","keyword",0),Token("","identifier",0),Token("=","operator",0),Token("","string",0),Token(";","operator",0) },
     { Token("print","keyword",0),Token("(","operator",0), Token("","string",0),Token(")","operator",0),Token(";","operator",0)},
+	{ Token("print","keyword",0),Token("(","operator",0), Token("","string",0),Token(",","operator",0),Token("endl","keyword",0),Token(")","operator",0),Token(";","operator",0)},
+	{ Token("print","keyword",0),Token("(","operator",0), Token("","identifier",0),Token(",","operator",0),Token("endl","keyword",0),Token(")","operator",0),Token(";","operator",0)},
 	{ Token("print","keyword",0),Token("(","operator",0), Token("","identifier",0),Token(")","operator",0),Token(";","operator",0)},
 	{ Token("input","keyword",0),Token("(","operator",0), Token("","identifier",0),Token(")","operator",0),Token(";","operator",0)},
 	{ Token("exit","keyword",0),Token("(","operator",0), Token("","constant",0),Token(")","operator",0),Token(";","operator",0)}
@@ -77,6 +81,10 @@ void rlang::Parser(std::vector<Token>& source, std::vector<Expression>& statemen
 	for (int i = 0; i < source.size(); i++)
 	{
 		flag = false;
+		if (source[i].Type() == "comment")
+		{
+			continue;
+		}
 		while ( (source[i].token() != ";" && i < source.size()))
 		{
 			buffer.push_back(source[i]);
