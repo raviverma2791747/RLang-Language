@@ -6,8 +6,8 @@ using namespace rlang;
 
 char operators[] = "=,;+-*/(){}&";
 const int operator_count = 13;
-std::string Keywords[] = {"endl","null","pause","clear","true","false","main","print","bool","int","float","string","return","break","continue","exit","input"};
-const int keyword_count = 17;
+std::string Keywords[] = {"endl","null","scope","end","pause","clear","true","false","main","print","bool","int","float","string","return","break","continue","exit","input"};
+const int keyword_count = 19;
 
 Token::Token(std::string token, std::string type, int line) :
     m_token(token), m_type(type), m_line(line)

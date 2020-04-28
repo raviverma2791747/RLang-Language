@@ -8,6 +8,7 @@ namespace rlang
 	class Variable
 	{
 	private:
+		std::string m_scope;
 		std::string m_name;
 		std::string m_type;
 		int* m_int;
@@ -16,9 +17,9 @@ namespace rlang
 		bool m_bool;
 	public:
 		Variable();
-		Variable(std::string name, int value);
-		Variable(std::string name, float value);
-		Variable(std::string name, std::string value);
+		Variable(std::string name, int value,std::string scope);
+		Variable(std::string name, float value, std::string scope);
+		Variable(std::string name, std::string value, std::string scope);
 		std::string Type();
 		std::string Name();
 		int Int();
@@ -28,6 +29,7 @@ namespace rlang
 		void Input(float value);
 		void Input(std::string value);
 		void Log();
+		std::string Scope();
 	};
 
 	class System
@@ -37,10 +39,16 @@ namespace rlang
 		System() {};
 		System(System&) = delete;
 		std::vector<Variable> var_table;
+		std::vector<std::string> scope_table;
 	public:
 		static System& IO()
 		{
 			return instance;
+		}
+		
+		void Scope(std::string scope)
+		{
+			scope_table.push_back(scope);
 		}
 
 		void Allocate(Variable var)
@@ -49,12 +57,17 @@ namespace rlang
 			//std::cout << var_table.size() << std::endl;
 		}
 
-		void Print(std::string name, bool newline)
+		void Print(std::string name, bool newline,std::string scope)
 		{
 			for (int i = 0; i < var_table.size(); i++)
 			{
 				if (var_table[i].Name() == name)
 				{
+					if (var_table[i].Scope() != scope)
+					{
+						std::cout << std::endl << "ERROR : Access denied not in current scope" << std::endl;
+						return;
+					}
 					if (var_table[i].Type() == "int")
 					{
 						std::cout << var_table[i].Int();
@@ -84,7 +97,7 @@ namespace rlang
 			}
 		}
 
-		void Print(Token cs,bool newline)
+		void Print(Token cs,bool newline, std::string scope)
 		{
 			if (cs.Type() == "string")
 			{
@@ -104,7 +117,7 @@ namespace rlang
 			}
 		}
 
-		void Print(int value, bool newline)
+		void Print(int value, bool newline, std::string scope)
 		{
 			std::cout << value;
 			if (newline)
@@ -142,6 +155,11 @@ namespace rlang
 			{
 				var_table[i].Log();
 			}
+			std::cout << std::endl << "Scopes" << std::endl;
+			for (int i = 0; i < scope_table.size(); i++)
+			{
+				std::cout<<scope_table[i]<<std::endl;
+			}
 		}
 
 		void Pause()
@@ -173,6 +191,6 @@ namespace rlang
 		}
 	};
 
-	void Execute(Expression e, bool& status);
+	void Execute(Expression e, bool& status,std::string& scope);
 	void Interpreter(std::vector<rlang::Expression>& statement,int internal);
 }

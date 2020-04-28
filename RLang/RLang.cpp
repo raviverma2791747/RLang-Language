@@ -19,7 +19,7 @@ int main()
 	std::cout << "Parsing Ended" << std::endl;
 	std::cin.get();
 	std::cout << "Interpreting started" << std::endl;
-	rlang::Interpreter(stm,0);
+	rlang::Interpreter(stm,1);
 	std::cout <<std::endl<< "Interpreting Ended" << std::endl;
 	std::cin.get();
 	return 0;

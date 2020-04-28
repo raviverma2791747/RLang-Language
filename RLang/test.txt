@@ -1,15 +1,8 @@
-/*Working Program*/
-int a = 100000;
-print("Declared and initialized a!",endl);
-print(a,endl);
-pause();
-float b = 3.14;
-print("Declared and initialized b!",endl);
-print(b,endl);
-pause();
-string c =  "interpreted language works!";
-print("Declared and initialized c!",endl);
-print(c,endl);
-pause();
-clear();
+scope program
+{
+int a;
+}end;
+
+print(a);
+
 exit(0);

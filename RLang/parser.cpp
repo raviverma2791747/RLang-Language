@@ -3,6 +3,8 @@
 using namespace rlang;
 
 std::vector<std::vector<Token>> grammer = {
+	{ Token("scope","keyword",0),Token("","identifier",0),Token("{","operator",0)},
+	{ Token("}","operator",0),Token("end","keyword",0),Token(";", "operator",0)},
 	{ Token("clear","keyword",0),Token("(","operator",0),Token(")","operator",0),Token(";","operator",0) },
 	{ Token("pause","keyword",0),Token("(","operator",0),Token(")","operator",0),Token(";","operator",0) },
 	{ Token("type","keyword",0),Token("","identifier",0),Token(";","operator",0) },
@@ -84,6 +86,24 @@ void rlang::Parser(std::vector<Token>& source, std::vector<Expression>& statemen
 		if (source[i].Type() == "comment")
 		{
 			continue;
+		}
+		if (source[i] == "scope")
+		{
+			buffer.push_back(source[i]);
+			buffer.push_back(source[i+1]);
+			buffer.push_back(source[i+2]);
+			statements.push_back(buffer);
+			buffer.clear();
+			i += 3;
+		}
+		else if (source[i]  == "}" && source[i+1] == "end")
+		{
+			buffer.push_back(source[i]);
+			buffer.push_back(source[i + 1]);
+			buffer.push_back(source[i + 2]);
+			statements.push_back(buffer);
+			buffer.clear();
+			i += 3;
 		}
 		while ( (source[i].token() != ";" && i < source.size()))
 		{

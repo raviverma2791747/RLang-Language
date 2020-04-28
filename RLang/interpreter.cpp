@@ -5,25 +5,25 @@
 using namespace rlang;
 
 Variable::Variable():
-	m_name(),m_type(),m_int(nullptr),m_float(nullptr),m_string(),m_bool(false)
+	m_scope(),m_name(),m_type(),m_int(nullptr),m_float(nullptr),m_string(),m_bool(false)
 {
 
 }
 
-Variable::Variable(std::string name,int value):
-	m_name(name), m_type("int"), m_int (new int), m_float(nullptr), m_string(), m_bool(false)
+Variable::Variable(std::string name,int value,std::string scope):
+	m_scope(scope),m_name(name), m_type("int"), m_int (new int), m_float(nullptr), m_string(), m_bool(false)
 {
 	*(m_int) = value;
 }
 
-Variable::Variable(std::string name, float value) :
-	m_name(name), m_type("float"), m_int(nullptr), m_float(new float), m_string(), m_bool(false)
+Variable::Variable(std::string name, float value, std::string scope) :
+	m_scope(scope), m_name(name), m_type("float"), m_int(nullptr), m_float(new float), m_string(), m_bool(false)
 {
 	*(m_float) = value;
 }
 
-Variable::Variable(std::string name, std::string value) :
-	m_name(name), m_type("string"), m_int(nullptr), m_float(nullptr), m_string(new std::string), m_bool(false)
+Variable::Variable(std::string name, std::string value, std::string scope) :
+	m_scope(scope),m_name(name), m_type("string"), m_int(nullptr), m_float(nullptr), m_string(new std::string), m_bool(false)
 {
 	*(m_string) = value;
 }
@@ -100,21 +100,35 @@ void Variable::Input(std::string value)
 
 void Variable::Log()
 {
-	std::cout << m_name << " " << m_type << std::endl;
+	std::cout <<m_scope<<" "<< m_name << " " << m_type << std::endl;
+}
+
+std::string Variable::Scope()
+{
+	return m_scope;
 }
 
 rlang::System rlang::System::instance;
 
-void rlang::Execute(Expression e,bool& status)
+void rlang::Execute(Expression e,bool& status, std::string& scope)
 {
-	if (e.m_tvalue[0].token() == "int")
+	if (e.m_tvalue[0].token() == "scope")
+	{
+		scope = e.m_tvalue[1].token();
+		System::IO().Scope(scope);
+	}
+	else if (e.m_tvalue[1].token() == "end")
+	{
+		scope = "global";
+	}
+	else if (e.m_tvalue[0].token() == "int")
 	{
 		
 		if (e.m_tvalue[1].Type() == "identifier")
 		{
 			if (e.m_tvalue[2].token() == ";")
 			{
-				Variable var(e.m_tvalue[1].token(),0);
+				Variable var(e.m_tvalue[1].token(),0,scope);
 				System::IO().Allocate(var);
 			}
 			else if (e.m_tvalue[2].token() == "=")
@@ -127,7 +141,7 @@ void rlang::Execute(Expression e,bool& status)
 					int temp_int;
 					s>> temp_int;
 					//Variable(e.m_tvalue[1].token(),temp_int);
-					System::IO().Allocate(Variable(e.m_tvalue[1].token(), temp_int));
+					System::IO().Allocate(Variable(e.m_tvalue[1].token(), temp_int, scope));
 				}
 			}
 		}
@@ -138,7 +152,7 @@ void rlang::Execute(Expression e,bool& status)
 		{
 			if (e.m_tvalue[2].token() == ";")
 			{
-				Variable var(e.m_tvalue[1].token(), 0.0f);
+				Variable var(e.m_tvalue[1].token(), 0.0f, scope);
 				System::IO().Allocate(var);
 			}
 			else if (e.m_tvalue[2].token() == "=")
@@ -151,7 +165,7 @@ void rlang::Execute(Expression e,bool& status)
 					float temp_float;
 					s >> temp_float;
 					//Variable(e.m_tvalue[1].token(),temp_int);
-					System::IO().Allocate(Variable(e.m_tvalue[1].token(), temp_float));
+					System::IO().Allocate(Variable(e.m_tvalue[1].token(), temp_float, scope));
 				}
 			}
 		}
@@ -162,7 +176,7 @@ void rlang::Execute(Expression e,bool& status)
 		{
 			if (e.m_tvalue[2].token() == ";")
 			{
-				Variable var(e.m_tvalue[1].token(),std::string());
+				Variable var(e.m_tvalue[1].token(),std::string(), scope);
 				System::IO().Allocate(var);
 			}
 			else if (e.m_tvalue[2].token() == "=")
@@ -171,7 +185,7 @@ void rlang::Execute(Expression e,bool& status)
 				if (e.m_tvalue[3].Type() == "string")
 				{
 					//Variable(e.m_tvalue[1].token(),temp_int);
-					System::IO().Allocate(Variable(e.m_tvalue[1].token(), (e.m_tvalue[3].token())));
+					System::IO().Allocate(Variable(e.m_tvalue[1].token(), e.m_tvalue[3].token(), scope));
 				}
 			}
 		}
@@ -182,22 +196,22 @@ void rlang::Execute(Expression e,bool& status)
 		{
 			if (e.m_tvalue.size() == 7)
 			{
-				System::IO().Print(e.m_tvalue[2].token(), true);
+				System::IO().Print(e.m_tvalue[2].token(), true, scope);
 			}
 			else
 			{
-				System::IO().Print(e.m_tvalue[2].token(), false);
+				System::IO().Print(e.m_tvalue[2].token(), false, scope);
 			}
 	    }
 		else if (e.m_tvalue[2].Type() == "string")
 		{
 			if (e.m_tvalue.size() == 7)
 			{
-				System::IO().Print(e.m_tvalue[2], true);
+				System::IO().Print(e.m_tvalue[2], true,scope);
 			}
 			else
 			{
-				System::IO().Print(e.m_tvalue[2], false);
+				System::IO().Print(e.m_tvalue[2], false, scope);
 			}
 		}
 	}
@@ -218,9 +232,11 @@ void rlang::Execute(Expression e,bool& status)
 void rlang::Interpreter(std::vector<rlang::Expression>& statement, int internal)
 {
 	bool status = true;
+	std::string  scope = "global";
+	System::IO().Scope(scope);
 	for(int i=0;i<statement.size();i++)
 	{
-		Execute(statement[i],status);
+		Execute(statement[i],status,scope);
 		if (status == false)
 		{
 			break;
