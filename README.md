@@ -39,5 +39,5 @@ print(data+data);<br>
 print(data+data,modifier);<br>
 Development :
 Currently Interpreter is able to do Lexical Analysis.<br>
-Ability to Parse is under development <br>
-
+Parsing and interpreting and executing<br>
+The language doesnt hsve any intermediate representation like pythons bytecode to keep simplicity<br>
