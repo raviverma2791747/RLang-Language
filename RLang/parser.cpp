@@ -6,9 +6,11 @@ std::vector<std::vector<Token>> grammer = {
 	{ Token("type","keyword",0),Token("","identifier",0),Token(";","operator",0) },
 	{ Token("type","keyword",0),Token("","identifier",0),Token("=","operator",0),Token("","constant",0),Token(";","operator",0) },
 	{ Token("type","keyword",0),Token("","identifier",0),Token("=","operator",0),Token("","identifier",0),Token(";","operator",0) },
+	{ Token("type","keyword",0),Token("","identifier",0),Token("=","operator",0),Token("","string",0),Token(";","operator",0) },
     { Token("print","keyword",0),Token("(","operator",0), Token("","string",0),Token(")","operator",0),Token(";","operator",0)},
 	{ Token("print","keyword",0),Token("(","operator",0), Token("","identifier",0),Token(")","operator",0),Token(";","operator",0)},
-	{ Token("input","keyword",0),Token("(","operator",0), Token("","identifier",0),Token(")","operator",0),Token(";","operator",0)}
+	{ Token("input","keyword",0),Token("(","operator",0), Token("","identifier",0),Token(")","operator",0),Token(";","operator",0)},
+	{ Token("exit","keyword",0),Token("(","operator",0), Token("","constant",0),Token(")","operator",0),Token(";","operator",0)}
 };
 
 Expression::Expression():

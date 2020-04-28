@@ -265,6 +265,7 @@ void rlang::Lexer(std::string path, std::vector<Token>& source,int internal)
             }
             else if (ch == ' ')
             {
+                buffer.pop_back();
                 break;
             }
             else if (IsOperator(ch))

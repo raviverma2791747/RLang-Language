@@ -16,6 +16,18 @@ Variable::Variable(std::string name,int value):
 	*(m_int) = value;
 }
 
+Variable::Variable(std::string name, float value) :
+	m_name(name), m_type("float"), m_int(nullptr), m_float(new float), m_string(), m_bool(false)
+{
+	*(m_float) = value;
+}
+
+Variable::Variable(std::string name, std::string value) :
+	m_name(name), m_type("string"), m_int(nullptr), m_float(nullptr), m_string(new std::string), m_bool(false)
+{
+	*(m_string) = value;
+}
+
 std::string Variable::Type()
 {
 	return m_type;
@@ -28,17 +40,47 @@ std::string Variable::Name()
 
 int Variable::Int()
 {
-	return *(m_int);
+	if (this->m_type != "int")
+	{
+		std::cout << std::endl << "Error : Illegal Read Write Operation" <<std::endl;
+		std::cout << "Expected Type : " << this->m_type << " but accessing : int" << std::endl;
+		std::cin.get();
+		return 0;
+	}
+	else
+	{
+		return *(m_int);
+	}
 }
 
 float Variable::Float()
 {
-	return *(m_float);
+	if (this->m_type != "float")
+	{
+		std::cout << std::endl << "Error : Illegal Read Write Operation" << std::endl;
+		std::cout << "Expected Type : " << this->m_type << " but accessing : Float" << std::endl;
+		std::cin.get();
+		return 0.0f;
+	}
+	else
+	{
+		return *(m_float);
+	}
 }
 
 std::string Variable::String()
 {
+	if (this->m_type != "string")
+	{
+		std::cout << std::endl<< "Error : Illegal Read Write Operation " << std::endl;
+		std::cout << "Expected Type : " << this->m_type << " but accessing : string" << std::endl;
+		std::cin.get();
+		return std::string("ERROR");
+	}
+	else
+	{
 	return *(m_string);
+	}
 }
 
 void Variable::Input(int value)
@@ -56,13 +98,18 @@ void Variable::Input(std::string value)
 
 }
 
+void Variable::Log()
+{
+	std::cout << m_name << " " << m_type << std::endl;
+}
 
 rlang::System rlang::System::instance;
 
-void rlang::Execute(Expression e,bool status)
+void rlang::Execute(Expression e,bool& status)
 {
 	if (e.m_tvalue[0].token() == "int")
 	{
+		
 		if (e.m_tvalue[1].Type() == "identifier")
 		{
 			if (e.m_tvalue[2].token() == ";")
@@ -70,9 +117,66 @@ void rlang::Execute(Expression e,bool status)
 				Variable var(e.m_tvalue[1].token(),0);
 				System::IO().Allocate(var);
 			}
+			else if (e.m_tvalue[2].token() == "=")
+			{
+				
+				if (e.m_tvalue[3].Type() == "constant")
+				{
+					
+					std::stringstream s(e.m_tvalue[3].token());
+					int temp_int;
+					s>> temp_int;
+					//Variable(e.m_tvalue[1].token(),temp_int);
+					System::IO().Allocate(Variable(e.m_tvalue[1].token(), temp_int));
+				}
+			}
 		}
 	}
-	if (e.m_tvalue[0].token() == "print")
+	else if (e.m_tvalue[0].token() == "float")
+	{
+		if (e.m_tvalue[1].Type() == "identifier")
+		{
+			if (e.m_tvalue[2].token() == ";")
+			{
+				Variable var(e.m_tvalue[1].token(), 0.0f);
+				System::IO().Allocate(var);
+			}
+			else if (e.m_tvalue[2].token() == "=")
+			{
+
+				if (e.m_tvalue[3].Type() == "constant")
+				{
+
+					std::stringstream s(e.m_tvalue[3].token());
+					float temp_float;
+					s >> temp_float;
+					//Variable(e.m_tvalue[1].token(),temp_int);
+					System::IO().Allocate(Variable(e.m_tvalue[1].token(), temp_float));
+				}
+			}
+		}
+	}
+	else if (e.m_tvalue[0].token() == "string")
+	{
+		if (e.m_tvalue[1].Type() == "identifier")
+		{
+			if (e.m_tvalue[2].token() == ";")
+			{
+				Variable var(e.m_tvalue[1].token(),std::string());
+				System::IO().Allocate(var);
+			}
+			else if (e.m_tvalue[2].token() == "=")
+			{
+
+				if (e.m_tvalue[3].Type() == "string")
+				{
+					//Variable(e.m_tvalue[1].token(),temp_int);
+					System::IO().Allocate(Variable(e.m_tvalue[1].token(), (e.m_tvalue[3].token())));
+				}
+			}
+		}
+	}
+	else if (e.m_tvalue[0].token() == "print")
 	{
 		if (e.m_tvalue[2].Type() == "identifier")
 		{
@@ -96,4 +200,5 @@ void rlang::Interpreter(std::vector<rlang::Expression>& statement)
 			break;
 		}
 	}
+	System::IO().Log();
 }

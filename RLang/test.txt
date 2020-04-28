@@ -1,3 +1,7 @@
-int a;
+int a = 100000;
+float b = 3.14;
+string c =  "interpreted language works!";
 print(a);
+print(b);
+print(c);
 exit(0);

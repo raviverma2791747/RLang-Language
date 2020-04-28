@@ -10,7 +10,7 @@ int main()
 {
 	std::cout << "Lexical Analysis started" << std::endl;
 	std::vector<rlang::Token> tkn;
-	rlang::Lexer("test1.txt",tkn,2);
+	rlang::Lexer("test.txt",tkn,2);
 	std::cout << "Lexical Analysis ended" << std::endl;
 	std::cin.get();
 	std::cout << "Parsing started" <<std::endl;
@@ -19,8 +19,8 @@ int main()
 	std::cout << "Parsing Ended" << std::endl;
 	std::cin.get();
 	std::cout << "Interpreting started" << std::endl;
-	//rlang::Interpreter(stm);
-	std::cout << "Interpreting Ended" << std::endl;
+	rlang::Interpreter(stm);
+	std::cout <<std::endl<< "Interpreting Ended" << std::endl;
 	std::cin.get();
 	return 0;
 }

@@ -16,6 +16,8 @@ namespace rlang
 	public:
 		Variable();
 		Variable(std::string name, int value);
+		Variable(std::string name, float value);
+		Variable(std::string name, std::string value);
 		std::string Type();
 		std::string Name();
 		int Int();
@@ -24,6 +26,7 @@ namespace rlang
 		void Input(int value);
 		void Input(float value);
 		void Input(std::string value);
+		void Log();
 	};
 
 	class System
@@ -42,6 +45,7 @@ namespace rlang
 		void Allocate(Variable var)
 		{
 			var_table.push_back(var);
+			std::cout << var_table.size() << std::endl;
 		}
 
 		void Print(std::string name, bool newline)
@@ -52,12 +56,29 @@ namespace rlang
 				{
 					if (var_table[i].Type() == "int")
 					{
-						std::cout << var_table[i].Int();
+						std::cout << var_table[0].Int();
 						if (newline)
 						{
-								std::cout << std::endl;
+							std::cout << std::endl;
 						}
 					}
+					else if (var_table[i].Type() == "float")
+					{
+						std::cout << var_table[0].Float();
+						if (newline)
+						{
+							std::cout << std::endl;
+						}
+					}
+					else if (var_table[i].Type() == "string")
+					{
+						std::cout << var_table[0].String();
+						if (newline)
+						{
+							std::cout << std::endl;
+						}
+					}
+					break;
 				}
 			}
 		}
@@ -92,8 +113,35 @@ namespace rlang
 				value.Input(temp_string);
 			}
 		}
+
+		void Log()
+		{
+			std::cout << std::endl << "Memory" << std::endl;
+			for (int i = 0; i < var_table.size(); i++)
+			{
+				var_table[i].Log();
+			}
+		}
 	};
 
-	void Execute(Expression e, bool status);
+	class Logger
+	{
+	private:
+		Logger() {};
+		Logger(Logger&) = delete;
+		static Logger instance;
+	public:
+		static Logger& IO()
+		{
+			return instance;
+		}
+		 
+		void Print()
+		{
+
+		}
+	};
+
+	void Execute(Expression e, bool& status);
 	void Interpreter(std::vector<rlang::Expression>& statement);
 }
