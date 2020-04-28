@@ -2,6 +2,14 @@
 
 using namespace rlang;
 
+std::vector<std::vector<Token>> grammer = {
+	{ Token("type","keyword",0),Token("","identifier",0),Token(";","operator",0) },
+	{ Token("type","keyword",0),Token("","identifier",0),Token("=","operator",0),Token("","constant",0),Token(";","operator",0) },
+	{ Token("type","keyword",0),Token("","identifier",0),Token("=","operator",0),Token("","identifier",0),Token(";","operator",0) },
+    { Token("print","keyword",0),Token("(","operator",0), Token("","string",0),Token(")","operator",0),Token(";","operator",0)},
+	{ Token("print","keyword",0),Token("(","operator",0), Token("","identifier",0),Token(")","operator",0),Token(";","operator",0)},
+	{ Token("input","keyword",0),Token("(","operator",0), Token("","identifier",0),Token(")","operator",0),Token(";","operator",0)}
+};
 
 Expression::Expression():
 	m_tvalue()
@@ -12,13 +20,35 @@ Expression::Expression():
 Expression::Expression(std::vector<Token> statement):
 	m_tvalue(statement)
 {
-	/*Grammar Check*/
-	if (m_tvalue[0].token() == "print")
+	bool flag = false;
+	for (int i = 0; i < grammer.size(); i++)
 	{
-		if (m_tvalue[2].Type() == "constant")
+		if (grammer[i].size() == m_tvalue.size())
 		{
-			std::cout << m_tvalue[2].token() << std::endl;
+			//std::cout << "ok";
+			flag = true;
+			for (int j = 0; j < grammer[i].size(); j++)
+			{
+				if (grammer[i][j].Type().compare(m_tvalue[j].Type()) != 0)
+				{
+					//std::cout << grammer[i][j].Type() <<" "<< grammer[i][j].Type().size() << std::endl;
+					//std::cout << m_tvalue[j].Type() << " " << m_tvalue[j].Type().size() << std::endl;
+					flag = false;
+					break;
+				}
+			}
+			if (flag == true)
+			{
+				break;
+			}
 		}
+	}
+	if (flag == false)
+	{
+		std::cout << std::endl;
+		std::cout << "ERROR : Illegal or undefined Syntax" << std::endl;
+		this->Log();
+		std::cout << std::endl;
 	}
 }
 
@@ -36,6 +66,8 @@ void Expression::Log()
 	std::cout << std::endl;
 }
 
+
+
 void rlang::Parser(std::vector<Token>& source, std::vector<Expression>& statements,int internal)
 {
 	std::vector<rlang::Token> buffer;
@@ -43,7 +75,7 @@ void rlang::Parser(std::vector<Token>& source, std::vector<Expression>& statemen
 	for (int i = 0; i < source.size(); i++)
 	{
 		flag = false;
-		while (source[i].token() != ";")
+		while ( (source[i].token() != ";" && i < source.size()))
 		{
 			buffer.push_back(source[i]);
 			flag = true;

@@ -67,7 +67,7 @@ void rlang::Execute(Expression e,bool status)
 		{
 			if (e.m_tvalue[2].token() == ";")
 			{
-				Variable var(e.m_tvalue[1].token(),10);
+				Variable var(e.m_tvalue[1].token(),0);
 				System::IO().Allocate(var);
 			}
 		}
