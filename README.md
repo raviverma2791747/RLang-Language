@@ -1,5 +1,5 @@
 # RLang-Language
-RLang Language is a interpreted language.<br>
+**RLang Language is an interpreted language.**<br>
 RLang is a simple procedural language run on a interpreter.<br>
 But in future Object oriented programming feature might be added<br>
 Syntax of RLang if influenced by C++<br>
@@ -38,7 +38,7 @@ scope scope-name <br>
 
 Control structures<br>
 
-Note: temporary scopes if and else blocks have similarity<br>
+*Note: temporary scopes and if and else blocks have similarity*<br>
 
 if()<br>
 {<br>
@@ -53,7 +53,7 @@ else<br>
 }<br>
 
 
-Basic system functions<br>
+**Basic system functions**<br>
 
 print();<br>
 input();<br>
@@ -61,17 +61,13 @@ return();<br>
 pause();<br>
 exit();<br>
 
-Currently Interpreter is able to do Lexical Analysis.<br>
+**Currently Interpreter is able to do Lexical Analysis**<br>
 
-NOTE: PARSER AND INTERPRETER ARE NOT COMPLETE MEANING THEY DONOT MAKE ANY ABSTRACT SYNTAX TREE THEY HAVE RIGID.
+*NOTE: PARSER AND INTERPRETER ARE NOT COMPLETE MEANING THEY DONOT MAKE ANY ABSTRACT SYNTAX TREE THEY HAVE RIGID.
 SYNTAX SO PARSER IS BEING MADE SEPARATELY ON OTHER REPOSITORY<br>
 THOUGH INTERPReTER PART HAS MADE PROGRESS BUT IT IS TEMPORARY ARRANGEMENT FOR NOW<br>
-Recursive descent parser is being planned to made<br>
+Recursive descent parser is being planned to made*<br>
 
 ![](https://github.com/raviverma2791747/RLang-Language/blob/master/RLang/Assests/Program%20structure.png)
 
 The language doesnt have any intermediate representation like pythons bytecode to keep simplicity for now<br>
-
-
-https://youtu.be/8BaC7mN-vbM
-
