@@ -59,7 +59,7 @@ scope temporary
 ```
 
 Permanent scopes<br>
-How to declare permament scopes<br>
+How to declare permanent scopes<br>
 
 ```
 scope scope-name 
