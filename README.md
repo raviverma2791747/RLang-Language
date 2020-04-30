@@ -67,6 +67,16 @@ scope scope-name
 }
 ```
 
+Accessing variables from peramanent scope from  outside<br>
+
+```
+scope scope-name 
+{
+  int identifier; 
+}
+print(scope-name.identifier);
+```
+
 Control structures<br>
 
 *Note: temporary scopes and if and else blocks have similarity*<br>
