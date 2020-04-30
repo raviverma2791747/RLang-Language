@@ -16,6 +16,30 @@ It supports below data types <br>
 
 **Proposed syntax** <br>
 
+Variable declaration<br>
+
+```
+int identifier ;
+float identifier ;
+bool identifier;
+string indetifier;
+```
+
+Variable initialization<br>
+```
+int identifier = constant | identifier;
+float identifier = constant | identifier ;
+bool identifier = constant | identifier;
+string indetifier = constant | identifier;
+```
+or
+```
+int identifier(constant | identifier);
+float identifier(constant | identifier) ;
+bool identifier(constant | identifier);
+string indetifier(constant | identifier);
+```
+
 Scope<br>
 
 Temporary scopes<br>
