@@ -21,36 +21,36 @@ Scope<br>
 Temporary scopes<br>
 How to declare temporary scopes<br>
 
-scope<br>
-{<br>
-}<br>
-
-scope temporary<br>
-{<br>
-}<br>
+'''scope
+{
+}'''
+ or <br>
+'''scope temporary
+{
+}'''
 
 Permanent scopes<br>
 How to declare permament scopes<br>
 
-scope scope-name <br>
+'''scope scope-name 
 {
-}
+}'''
 
 Control structures<br>
 
 *Note: temporary scopes and if and else blocks have similarity*<br>
 
-if()<br>
-{<br>
- <br>
-}<br>
-else if()<br>
-{<br>
-<br>
-}<br>
-else<br>
-{<br>
-}<br>
+'''if()
+{
+ 
+}
+else if()
+{
+
+}
+else
+{
+}'''
 
 
 **Basic system functions**<br>
