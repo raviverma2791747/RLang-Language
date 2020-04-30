@@ -9,20 +9,6 @@ But RLang focuses on :<br>
 Reducing complexity of syntax <br>
 Enchancing Readability of code<br>
 
-
-
-
-
-
- 
- 
-
-
-
-
-
-
-
 It supports below data types <br>
 1.bool<br>
 2.int<br>
@@ -33,13 +19,14 @@ syntax :<br>
 printing to screen.<br>
 print(data);<br>
 print(data,modifier);<br>
-
-print(data+data);<br>
-
-print(data+data,modifier);<br>
 Development :
 Currently Interpreter is able to do Lexical Analysis.<br>
 Parsing and interpreting and executing<br>
+NOTE: PARSER AND INTERPRETER ARE NOT COMPLETE MEANING THEY DONOT MAKE ANY ABSTRACT SYNTAX TREE THEY HAVE RIGID.
+SYNTAX SO PARSER IS BEING MADE SEPARATELY ON OTHER REPOSITORY<br>
+THOUGH INTERPRTER PART HAS MADE PROGRESS BUT IT IS TEMPORARY ARRANGEMENT FOR NOW<br>
+Recursive descent parser is being planned to made<br>
+
 
 The language doesnt hsve any intermediate representation like pythons bytecode to keep simplicity<br>
 
