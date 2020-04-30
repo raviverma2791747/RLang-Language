@@ -21,14 +21,15 @@ print(data);<br>
 print(data,modifier);<br>
 Development :
 Currently Interpreter is able to do Lexical Analysis.<br>
-Parsing and interpreting and executing<br>
+
 NOTE: PARSER AND INTERPRETER ARE NOT COMPLETE MEANING THEY DONOT MAKE ANY ABSTRACT SYNTAX TREE THEY HAVE RIGID.
 SYNTAX SO PARSER IS BEING MADE SEPARATELY ON OTHER REPOSITORY<br>
-THOUGH INTERPRTER PART HAS MADE PROGRESS BUT IT IS TEMPORARY ARRANGEMENT FOR NOW<br>
+THOUGH INTERPReTER PART HAS MADE PROGRESS BUT IT IS TEMPORARY ARRANGEMENT FOR NOW<br>
 Recursive descent parser is being planned to made<br>
 
+![](https://github.com/raviverma2791747/RLang-Language/blob/master/RLang/Assests/Program%20structure.png)
 
-The language doesnt hsve any intermediate representation like pythons bytecode to keep simplicity<br>
+The language doesnt have any intermediate representation like pythons bytecode to keep simplicity for now<br>
 
 
 https://youtu.be/8BaC7mN-vbM
