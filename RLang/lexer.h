@@ -1,3 +1,10 @@
+/*
+ Author  : Ravi Verma
+ Contact : raviverma439@gmail.com
+ Version : 1.0
+ This is a custom lexer for RLang language.
+ Contact author before using it in any project
+*/
 #pragma once
 #include <iostream>
 #include<string>
@@ -17,12 +24,7 @@ namespace rlang
         Token(char token, std::string type, int line);
         ~Token();
     public:
-        bool operator==(std::string str);
-        bool operator==(char str);
-    public:
         void Log();
-        void Log(int internal);
-        void Push_back(char ch);
         void Push_back(std::string str);
         std::string token();
         void Type(std::string type);

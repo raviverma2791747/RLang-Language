@@ -1,7 +1,16 @@
-import "ravi.txt";
-
-scope test
+scope program
 {
+  int a ;
+  int b;
+  int c;
+  int d;
+  int e ;
+  int f;
+  int g;
+  int h;
+
+
+
+}end;
 
 exit(0);
-}end;

@@ -1,11 +1,29 @@
+/*
+   Definitions :
+   class Token  member functions
+    Token()
+    Token(std::string token, std::string type, int line)
+    Token(char token, std::string type, int line)
+    ~Token()
+    Log()
+    Push_back(std::string str)
+    token()
+    Type()
+   
+   Function
+    IsKeyword(std::string& buffer)
+    IsOperator(char ch)
+    Lexer(std::string path, std::vector<Token>& source,int internal)
+*/
+
 #include"lexer.h"
 #include<fstream>
 #include<vector>
 
 using namespace rlang;
 
-char operators[] = "=,;+-*/(){}&";
-const int operator_count = 13;
+char operators[] = "=.,;+-*/(){}&";
+const int operator_count = 14;
 std::string Keywords[] = {"endl","null","import","scope","end","pause","clear","true","false","main","print","bool","int","float","string","return","break","continue","exit","input"};
 const int keyword_count = 20;
 
@@ -24,40 +42,12 @@ Token::~Token()
 
 }
 
-bool Token::operator==(std::string str)
-{
-    if (m_token == str)
-    {
-        return true;
-    }
-    return false;
-}
-
-bool Token::operator==(char str)
-{
-    std::string t_str(str, 1);
-    if (m_token == t_str)
-    {
-        return true;
-    }
-    return false;
-}
-
 void Token::Log()
 {
     std::cout.width(4);
     std::cout << std::left << m_line << " | ";
     std::cout.width(10);
     std::cout << std::left << m_type << " | " << m_token << std::endl;
-}
-void Token::Log(int internal)
-{
-    std::cout << m_token << " ";
-}
-
-void Token::Push_back(char ch)
-{
-    m_token.push_back(ch);
 }
 
 void Token::Push_back(std::string str)
@@ -304,6 +294,8 @@ void rlang::Lexer(std::string path, std::vector<Token>& source,int internal)
         }
     }
     fin.close();
+
+    /*Functions for testing and viewing status*/
     if (internal == 1 ||internal == 3)
     {
         std::ofstream fout;

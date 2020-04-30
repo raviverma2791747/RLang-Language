@@ -1,0 +1,52 @@
+
+Scope
+
+Temporary scopes
+How to declare temporary scopes
+
+scope
+{
+}
+
+scope temporary
+{
+}
+
+Permanent scopes
+How to declare permament scopes
+
+scope <scope-name>
+{
+}
+
+Control structures
+
+Note: temporary scopes if and else blocks have similarity
+
+if()
+{
+ 
+}
+else if()
+{
+
+}
+else
+{
+}
+
+
+Basic system functions
+
+print();
+input();
+return();
+pause();
+exit();
+
+System objects
+
+file
+
+
+
