@@ -3,7 +3,6 @@ RLang Language is a interpreted language.<br>
 RLang is a simple procedural language run on a interpreter.<br>
 But in future Object oriented programming feature might be added<br>
 Syntax of RLang if influenced by C++<br>
-i.e variable declaration int a ;<br>
 
 But RLang focuses on :<br>
 Reducing complexity of syntax <br>
@@ -15,11 +14,53 @@ It supports below data types <br>
 3.float<br>
 4.string <br>
 
-syntax :<br>
-printing to screen.<br>
-print(data);<br>
-print(data,modifier);<br>
-Development :
+Proposed syntax <br>
+
+Scope<br>
+
+Temporary scopes<br>
+How to declare temporary scopes<br>
+
+scope<br>
+{<br>
+}<br>
+
+scope temporary<br>
+{<br>
+}<br>
+
+Permanent scopes<br>
+How to declare permament scopes<br>
+
+scope scope-name <br>
+{
+}
+
+Control structures<br>
+
+Note: temporary scopes if and else blocks have similarity<br>
+
+if()<br>
+{<br>
+ <br>
+}<br>
+else if()<br>
+{<br>
+<br>
+}<br>
+else<br>
+{<br>
+}<br>
+
+
+Basic system functions<br>
+
+print();<br>
+input();<br>
+return();<br>
+pause();<br>
+exit();<br>
+
 Currently Interpreter is able to do Lexical Analysis.<br>
 
 NOTE: PARSER AND INTERPRETER ARE NOT COMPLETE MEANING THEY DONOT MAKE ANY ABSTRACT SYNTAX TREE THEY HAVE RIGID.
