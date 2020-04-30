@@ -58,7 +58,7 @@ void Token::Push_back(std::string str)
     }
 }
 
-std::string Token::token()
+const std::string& Token::token()
 {
     return m_token;
 }
@@ -68,7 +68,7 @@ void Token::Type(std::string type)
     m_type = type;
 }
 
-std::string Token::Type()
+const std::string& Token::Type()
 {
     return m_type;
 }

@@ -1,9 +1,10 @@
 #include<iostream>
-#include"lexer.h"
-#include"parser.h"
 #include"interpreter.h"
 #include<vector>
-#include<sstream>
+#include"lexer.h"
+#include"parser.h"
+
+
 
 
 int main()
@@ -13,7 +14,8 @@ int main()
 	rlang::Lexer("test.txt",tkn,2);
 	std::cout << "Lexical Analysis ended" << std::endl;
 	std::cin.get();
-	std::cout << "Currently Only Lexical analysis available"<<std::endl;
+	std::cout << "Parser started" << std::endl;
+	rlang::Parser(tkn);
 	std::cin.get();
 	return 0;
 }

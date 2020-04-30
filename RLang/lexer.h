@@ -5,6 +5,7 @@
  This is a custom lexer for RLang language.
  Contact author before using it in any project
 */
+
 #pragma once
 #include <iostream>
 #include<string>
@@ -26,9 +27,9 @@ namespace rlang
     public:
         void Log();
         void Push_back(std::string str);
-        std::string token();
+        const std::string& token();
         void Type(std::string type);
-        std::string Type();
+        const std::string& Type();
     };
 
     bool IsKeyword(std::string& buffer);
