@@ -13,6 +13,7 @@ It supports below data types <br>
 2.int<br>
 3.float<br>
 4.string <br>
+5.void<br>
 
 **Proposed syntax** <br>
 
