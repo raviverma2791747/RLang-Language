@@ -14,7 +14,7 @@ It supports below data types <br>
 3.float<br>
 4.string <br>
 
-Proposed syntax <br>
+**Proposed syntax** <br>
 
 Scope<br>
 
