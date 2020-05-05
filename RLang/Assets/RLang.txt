@@ -1,0 +1,18 @@
+RLang BNF grammar specification
+Under development
+
+Declaration
+<variable declarators> ::= <variable declarator> | <variable declarators> , <variable declarator>
+<variable declarator>  ::= <variable declarator id> | <variable declarator id> = <variable initializer>
+<variable declarator id> ::= <identifier> | <variable declarator id> [ ]
+
+Types
+<type>           ::= <primitive type> | <reference type>
+<primitive type> ::= <numeric type>   | bool | void | string
+<numeric type>   ::= int | float
+<identifier>     ::= <variable_name>   | <function_name>
+<reference type> ::= <array_type>
+<array_type>     ::= <type>[]
+
+Tokens
+<keyword>        ::= void | bool | int | float | string | main | return | print | pause | if | else | endl
