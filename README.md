@@ -1,3 +1,4 @@
+RLANG DEVELOPMENT STOPPED FOR UNDETERMINED PERIOD OF TIME
 # RLang-Language
 **RLang Language is an interpreted language.**<br>
 RLang is a simple procedural language run on a interpreter.<br>
